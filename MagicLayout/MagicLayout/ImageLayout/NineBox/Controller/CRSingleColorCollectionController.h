@@ -1,0 +1,18 @@
+//
+//  CRSingleColorCollectionController.h
+//  MagicLayout
+//
+//  Created by 周文涛 on 2016/10/20.
+//  Copyright © 2016年 周文涛. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+/*
+ @brief 单色图片选择器
+ */
+@interface CRSingleColorCollectionController : NSObject<UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
+
+@property (nonatomic, strong) UICollectionView * singleColorCollectionView;
+
+@end

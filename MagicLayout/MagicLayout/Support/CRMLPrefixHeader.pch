@@ -1,0 +1,28 @@
+//
+//  CRMLPrefixHeader.pch
+//  MagicLayout
+//
+//  Created by 周文涛 on 2016/10/20.
+//  Copyright © 2016年 周文涛. All rights reserved.
+//
+
+#ifndef CRMLPrefixHeader_pch
+#define CRMLPrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#define SCREENWIDTH             [[UIScreen mainScreen] bounds].size.width
+
+#define SCREENHEIGHT            [[UIScreen mainScreen] bounds].size.height
+
+#endif /* CRMLPrefixHeader_pch */
+
+
+#define SCREENWIDTH             [[UIScreen mainScreen] bounds].size.width
+
+#define SCREENHEIGHT            [[UIScreen mainScreen] bounds].size.height
+
+//color
+#define RGBCOLOR(r,g,b) ([UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1])
+#define WHITECOLOR(w) ([UIColor colorWithWhite:w/255.0 alpha:1])
+#define COLOR(color) ([UIColor color])
