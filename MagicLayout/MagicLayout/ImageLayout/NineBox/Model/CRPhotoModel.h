@@ -29,6 +29,4 @@
  */
 + (NSArray<PHAsset *> *)getAllAssetInPhotoAlbumWithAsceding:(BOOL)ascending;
 
-+ (CGSize)sizeForAsset:(PHAsset *)asset;
-
 @end

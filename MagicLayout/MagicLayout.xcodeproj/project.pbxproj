@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B81C67A01DF056C000DCA45A /* CRNineCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = B81C679F1DF056C000DCA45A /* CRNineCustomView.m */; };
+		B81C67A21DF0638000DCA45A /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B81C67A11DF0638000DCA45A /* test.jpg */; };
+		B81C67A51DF077A000DCA45A /* CRNinePhotoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B81C67A41DF077A000DCA45A /* CRNinePhotoModel.m */; };
 		B84F40711D800E3700E20225 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B84F40701D800E3700E20225 /* main.m */; };
 		B84F40741D800E3700E20225 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B84F40731D800E3700E20225 /* AppDelegate.m */; };
 		B84F40771D800E3700E20225 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B84F40761D800E3700E20225 /* ViewController.m */; };
@@ -19,7 +22,7 @@
 		B874B6751DC326A900656B9E /* CRSingleColorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B874B6741DC326A900656B9E /* CRSingleColorModel.m */; };
 		B874B6781DC3371500656B9E /* CRSceneModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B874B6771DC3371500656B9E /* CRSceneModel.m */; };
 		B874B67A1DC33DC200656B9E /* test.xib in Resources */ = {isa = PBXBuildFile; fileRef = B874B6791DC33DC200656B9E /* test.xib */; };
-		B874B67E1DC3439100656B9E /* UIImage+CreateWithColor.m in Sources */ = {isa = PBXBuildFile; fileRef = B874B67D1DC3439100656B9E /* UIImage+CreateWithColor.m */; };
+		B874B67E1DC3439100656B9E /* UIImage+CRCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = B874B67D1DC3439100656B9E /* UIImage+CRCategory.m */; };
 		B87EDFEE1DB8987100A6E7E1 /* CRGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B87EDFED1DB8987100A6E7E1 /* CRGuideViewController.m */; };
 		B87EDFF31DB89BB800A6E7E1 /* CRAdvertisementView.m in Sources */ = {isa = PBXBuildFile; fileRef = B87EDFF21DB89BB800A6E7E1 /* CRAdvertisementView.m */; };
 		B87EDFF61DB8AD6700A6E7E1 /* CRPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87EDFF51DB8AD6700A6E7E1 /* CRPhotoCollectionViewCell.m */; };
@@ -98,6 +101,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B81C679E1DF056C000DCA45A /* CRNineCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRNineCustomView.h; sourceTree = "<group>"; };
+		B81C679F1DF056C000DCA45A /* CRNineCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRNineCustomView.m; sourceTree = "<group>"; };
+		B81C67A11DF0638000DCA45A /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
+		B81C67A31DF077A000DCA45A /* CRNinePhotoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRNinePhotoModel.h; sourceTree = "<group>"; };
+		B81C67A41DF077A000DCA45A /* CRNinePhotoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRNinePhotoModel.m; sourceTree = "<group>"; };
 		B84F406C1D800E3700E20225 /* MagicLayout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagicLayout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B84F40701D800E3700E20225 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Support/main.m; sourceTree = "<group>"; };
 		B84F40721D800E3700E20225 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -122,8 +130,8 @@
 		B874B6761DC3371500656B9E /* CRSceneModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRSceneModel.h; sourceTree = "<group>"; };
 		B874B6771DC3371500656B9E /* CRSceneModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRSceneModel.m; sourceTree = "<group>"; };
 		B874B6791DC33DC200656B9E /* test.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = test.xib; sourceTree = "<group>"; };
-		B874B67C1DC3439100656B9E /* UIImage+CreateWithColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CreateWithColor.h"; sourceTree = "<group>"; };
-		B874B67D1DC3439100656B9E /* UIImage+CreateWithColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CreateWithColor.m"; sourceTree = "<group>"; };
+		B874B67C1DC3439100656B9E /* UIImage+CRCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CRCategory.h"; sourceTree = "<group>"; };
+		B874B67D1DC3439100656B9E /* UIImage+CRCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CRCategory.m"; sourceTree = "<group>"; };
 		B87EDFE71DB8972B00A6E7E1 /* CRSingleColorCollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRSingleColorCollectionController.h; sourceTree = "<group>"; };
 		B87EDFE81DB8972B00A6E7E1 /* CRSingleColorCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRSingleColorCollectionController.m; sourceTree = "<group>"; };
 		B87EDFEC1DB8987100A6E7E1 /* CRGuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRGuideViewController.h; sourceTree = "<group>"; };
@@ -227,6 +235,7 @@
 		B84F40631D800E3700E20225 = {
 			isa = PBXGroup;
 			children = (
+				B81C67A11DF0638000DCA45A /* test.jpg */,
 				B84F406E1D800E3700E20225 /* MagicLayout */,
 				B84F40881D800E3700E20225 /* MagicLayoutTests */,
 				B84F40931D800E3700E20225 /* MagicLayoutUITests */,
@@ -286,8 +295,8 @@
 		B874B67B1DC3434A00656B9E /* CateGory */ = {
 			isa = PBXGroup;
 			children = (
-				B874B67C1DC3439100656B9E /* UIImage+CreateWithColor.h */,
-				B874B67D1DC3439100656B9E /* UIImage+CreateWithColor.m */,
+				B874B67C1DC3439100656B9E /* UIImage+CRCategory.h */,
+				B874B67D1DC3439100656B9E /* UIImage+CRCategory.m */,
 				B8742CBD1DCB139F0075A925 /* UIButton+SelectedButton.h */,
 				B8742CBE1DCB139F0075A925 /* UIButton+SelectedButton.m */,
 				B8742CC01DCB207F0075A925 /* UIImageView+AssetPhoto.h */,
@@ -391,6 +400,8 @@
 				B8E5CDC11DB9E3ED006FBA6E /* CRValueForPicterView.m */,
 				B88271651DC879AE0038585E /* CRSceneView.h */,
 				B88271661DC879AE0038585E /* CRSceneView.m */,
+				B81C679E1DF056C000DCA45A /* CRNineCustomView.h */,
+				B81C679F1DF056C000DCA45A /* CRNineCustomView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -420,6 +431,8 @@
 				B874B6761DC3371500656B9E /* CRSceneModel.h */,
 				B874B6771DC3371500656B9E /* CRSceneModel.m */,
 				B874B6791DC33DC200656B9E /* test.xib */,
+				B81C67A31DF077A000DCA45A /* CRNinePhotoModel.h */,
+				B81C67A41DF077A000DCA45A /* CRNinePhotoModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -529,7 +542,7 @@
 				TargetAttributes = {
 					B84F406B1D800E3700E20225 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = V6A9P37ADX;
+						ProvisioningStyle = Manual;
 					};
 					B84F40841D800E3700E20225 = {
 						CreatedOnToolsVersion = 7.3;
@@ -584,6 +597,7 @@
 				B887F61B1DC7386800B4B36C /* 1.8.png in Resources */,
 				B887F61F1DC7386800B4B36C /* 1.12.png in Resources */,
 				B887F6151DC7386800B4B36C /* 1.2.png in Resources */,
+				B81C67A21DF0638000DCA45A /* test.jpg in Resources */,
 				B887F6261DC7386800B4B36C /* 2.7.png in Resources */,
 				B887F6301DC7386800B4B36C /* 3.5.png in Resources */,
 				B887F62E1DC7386800B4B36C /* 3.3.png in Resources */,
@@ -643,7 +657,7 @@
 				B874B6781DC3371500656B9E /* CRSceneModel.m in Sources */,
 				B87EDFF91DB8AD7D00A6E7E1 /* CRSingColorCollectionViewCell.m in Sources */,
 				B8742CBF1DCB139F0075A925 /* UIButton+SelectedButton.m in Sources */,
-				B874B67E1DC3439100656B9E /* UIImage+CreateWithColor.m in Sources */,
+				B874B67E1DC3439100656B9E /* UIImage+CRCategory.m in Sources */,
 				B874B6751DC326A900656B9E /* CRSingleColorModel.m in Sources */,
 				B8E5CDC21DB9E3ED006FBA6E /* CRValueForPicterView.m in Sources */,
 				B84F40741D800E3700E20225 /* AppDelegate.m in Sources */,
@@ -651,10 +665,12 @@
 				B87F3A711D93CB6E0010D8BC /* CRNineBoxViewController.m in Sources */,
 				B87F3A6C1D93C3E00010D8BC /* CRNineBoxView.m in Sources */,
 				B87EDFF31DB89BB800A6E7E1 /* CRAdvertisementView.m in Sources */,
+				B81C67A01DF056C000DCA45A /* CRNineCustomView.m in Sources */,
 				B84F40711D800E3700E20225 /* main.m in Sources */,
 				B87EDFEE1DB8987100A6E7E1 /* CRGuideViewController.m in Sources */,
 				B887F6461DC7466700B4B36C /* CRSceneCollectionViewCell.m in Sources */,
 				B87EDFFF1DB8C33E00A6E7E1 /* CRNineBoxSegmentControl.m in Sources */,
+				B81C67A51DF077A000DCA45A /* CRNinePhotoModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -784,7 +800,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = V6A9P37ADX;
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MagicLayout/Support/CRMLPrefixHeader.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/MagicLayout/Support/Info.plist";
@@ -800,7 +816,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = V6A9P37ADX;
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MagicLayout/Support/CRMLPrefixHeader.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/MagicLayout/Support/Info.plist";

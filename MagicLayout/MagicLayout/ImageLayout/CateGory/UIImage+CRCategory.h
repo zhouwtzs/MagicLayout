@@ -1,5 +1,5 @@
 //
-//  UIImage+CreateWithColor.h
+//  UIImage+CRCategory.h
 //  MagicLayout
 //
 //  Created by 周文涛 on 2016/10/28.
@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+
+#import <Photos/Photos.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImage (CreateWithColor)
 
@@ -25,13 +29,18 @@
  */
 + (UIImage *)createImageWithColor:(UIColor *)color size:(CGSize)size;
 
+
+@end
+
+@interface UIImage (ShapeChange)
+
 /**
  压缩图片
  @param imgSrc 原始图片
  @param rect   rect
  @return 返回腿片
  */
-+ (UIImage *)compressImage:(UIImage *)imgSrc withRect:(CGRect)rect;
++ (UIImage *)compressImage:(UIImage *)imgSrc withScale:(CGFloat)scale;
 
 
 /**
@@ -42,5 +51,14 @@
  */
 + (UIImage *)shearImage:(UIImage * )editImage withFrame:(CGRect)imageFrame;
 
+@end
+
+
+@interface UIImage (ImageCache)
+
+- (void)CR_cacheImageWithAsset:(PHAsset *)asset completed:(void (^__nullable)(NSDictionary *__nullable info))completion;
+
 
 @end
+
+NS_ASSUME_NONNULL_END

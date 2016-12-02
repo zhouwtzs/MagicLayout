@@ -10,16 +10,14 @@
 
 #import "CRSingColorCollectionViewCell.h"
 #import "CRPhotoCollectionViewCell.h"
+#import "CRNineCustomView.h"
 
 #import "UIImage+CreateWithColor.h"
-
-#define WEAK_COVER      typeof(_translucentCover) __weak weakCover = _translucentCover
-#define WEAK_CUSTOM     typeof(_customImageView) __weak weakCustom = _customImageView;
 
 
 @interface CRNineBoxViewController ()
 
-@property (nonatomic, strong) UIImageView * customImageView;            //显示当前拖拽的view上的图片
+@property (nonatomic, strong) CRNineCustomView * customImageView;       //显示当前拖拽的view上的图片
 
 @property (nonatomic, strong) UIView * translucentCover;                //半透明遮盖物
 
@@ -34,12 +32,34 @@
     // Do any additional setup after loading the view.
         
     self.title = @"魔版";
-        
-    [self createView];
     
-    [self addNotification];
+    UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 100, 200, 200)];
+    
+    imageView.backgroundColor = [UIColor redColor];
+    
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    UIImage * image = [UIImage imageNamed:@"test.jpg"];
+    
+    //imageView.image = image;
+    
+    //imageView.image = [UIImage compressImage:image withScale:0.8] ;
+    
+    imageView.image = [UIImage shearImage:image withFrame:CGRectMake(50, 50, 50, 50)];
+    
+    [self.view addSubview:imageView];
+    
+//    [self createView];
+//
+//    [self addNotification];
     
 }
+
+- (void)pressBtn:(UIButton *)btn{
+    
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -163,13 +183,11 @@
         
         if (!_customImageView) {
             
-            _customImageView = [[UIImageView alloc]init];
+            _customImageView = [[CRNineCustomView alloc]initWithFrame:toSelfRect];
         }
         _customImageView.frame = toSelfRect;
         
-        //UIImage * image = [UIImage createImageWithColor:collectionViewCell.contentView.backgroundColor];
-        
-        _customImageView.image = image;
+        //_customImageView.infoImage = image;
         
         [self.view addSubview:_customImageView];
         
@@ -236,10 +254,9 @@
         
         _translucentCover.alpha = 0.0f;
         
-        WEAK_COVER;
-        
         [UIView animateWithDuration:0.15 animations:^{
-            weakCover.alpha = 1.0f;
+            
+            _translucentCover.alpha = 1.0f;
         }];
     }
     [self.view addSubview:_translucentCover];
@@ -249,12 +266,13 @@
     
     if (animated) {
         
-        WEAK_COVER;
-        
         [UIView animateWithDuration:0.15 animations:^{
-            weakCover.alpha = 0;
+            
+            _translucentCover.alpha = 0;
+            
         }completion:^(BOOL finished) {
-            [weakCover removeFromSuperview];
+            
+            [_translucentCover removeFromSuperview];
         }];
     }else{
         [_translucentCover removeFromSuperview];
@@ -265,7 +283,8 @@
     
     CGRect rect = [self.view convertRect:imageView.bounds fromView:imageView];  //resultimageview 的frame
     
-    CGPoint center = [self.view convertPoint:imageView.center fromView:_nineBoxView];
+    
+    CGPoint center = [self.view convertPoint:imageView.center fromView:_nineBoxView];   //custom的中心
     
     CGRect customRect = _customImageView.frame;
     
@@ -281,39 +300,44 @@
     
     if (fabs(scale-1) < 0.05) {
         //fame相同，直接调整
-        WEAK_CUSTOM;
-        
         [UIView animateWithDuration:0.25 animations:^{
             
-            weakCustom.frame = rect;
+            _customImageView.frame = rect;
             
         } completion:^(BOOL finished) {
             
-            imageView.image = weakCustom.image;
+            //imageView.image = _customImageView.infoImage;
             
             imageView.alpha = 1.0f;
             
-            [weakCustom removeFromSuperview];
+            [_customImageView removeFromSuperview];
         }];
     }else{
         //farme不相同，需要进行适配
-        WEAK_CUSTOM;
         CGSize minSize = [self minSizeContrast:rect.size oldSize:customRect.size];
         
         [UIView animateWithDuration:0.25 animations:^{
             
-            weakCustom.bounds = CGRectMake(0, 0, minSize.width, minSize.height);
+            _customImageView.frame = rect;
             
-            weakCustom.center = center;
+            _customImageView.infoImageView.bounds = CGRectMake(0, 0, minSize.width, minSize.height);
+            
+            _customImageView.infoImageView.center = CGPointMake(rect.size.width*0.5, rect.size.height*0.5);
                                     
         } completion:^(BOOL finished) {
             
-            //_customImageView.layer.bounds = CGRectMake(0, 0, minSize.width, minSize.height);
+            //imageView.image = _customImageView.infoImage;
+            
+            imageView.alpha = 1.0f;
+            
+            [_customImageView removeFromSuperview];
+            
         }];
     }
 }
 
 
+//为了能更好的填充视图，需要判断视图最小是多大
 - (CGSize)minSizeContrast:(CGSize)contrast oldSize:(CGSize)oldSize{
     
     CGSize minSize = oldSize;
@@ -334,7 +358,6 @@
     }
     return minSize;
 }
-
 
 
 
