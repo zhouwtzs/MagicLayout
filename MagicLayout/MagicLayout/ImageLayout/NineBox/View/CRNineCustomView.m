@@ -8,7 +8,7 @@
 
 #import "CRNineCustomView.h"
 
-#import "UIImage+CreateWithColor.h"
+#import "UIImage+CRCategory.h"
 
 @implementation CRNineCustomView
 
@@ -40,7 +40,7 @@
         
         [self addSubview:_infoImageView];
         
-        _photoInfo = [[CRNinePhotoModel alloc]init];
+        _photoInfo = [[CRPhotoModel alloc]init];
     }
     return self;
 }
@@ -64,20 +64,16 @@
 }
 
 #pragma mark - method
-
-- (void)setFitImage:(UIImage *)image{
+- (void)setPhotoInfo:(CRPhotoModel *)photoInfo{
     
-    _infoImageView.image = image;
+    _photoInfo = photoInfo;
     
-    _photoInfo.fitImage = image;
+    self.infoImageView.image = photoInfo.fitImage;
     
-    float minf = MIN(image.size.width, image.size.height);
-    
-    CGRect thumbFrame = CGRectMake((image.size.width-minf)*0.5, (image.size.height-minf)*0.5, minf, minf);
-    
-    _photoInfo.thumbImage = [UIImage shearImage:image withFrame:thumbFrame];
-    
-    
+    [UIImage CR_cacheImageWithAsset:photoInfo.phasset completed:^(UIImage * _Nullable image, NSDictionary * _Nullable info) {
+        
+        _photoInfo.originalImage = image;
+    }];
 }
 
 

@@ -73,13 +73,36 @@
 
 + (UIImage *)shearImage:(UIImage * )editImage withFrame:(CGRect)imageFrame
 {
+//    CGImageRef imageRef = editImage.CGImage;
+//    
+//    CGRect subfre = CGRectIntegral(imageFrame);
+//    
+//    CGImageRef subImageRef = CGImageCreateWithImageInRect(imageRef, subfre);
+//    
+//    UIImage* smallImage = [UIImage imageWithCGImage:subImageRef];
+//    
+//    return smallImage;
+    
+    CGFloat finalWidth;         //最终的宽度
+    CGFloat finalHeignt;        //最终的高度
+    if (editImage == nil) {
+        return nil;
+    }
+    //    CGRect finalRect = CGRectMake(imageFrame.origin.x, imageFrame.origin.x, MIN(editImage.size.width, imageFrame.size.width + imageFrame.origin.x), MIN(editImage.size.height, imageFrame.size.height + imageFrame.origin.y));
+    CGRect finalRect = imageFrame;
     CGImageRef imageRef = editImage.CGImage;
-    
-    CGImageRef subImageRef = CGImageCreateWithImageInRect(imageRef, imageFrame);
-    
+    CGImageRef subImageRef = CGImageCreateWithImageInRect(imageRef, finalRect);
+    UIGraphicsBeginImageContext(CGSizeMake(finalWidth, finalHeignt));
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextDrawImage(context, finalRect, subImageRef);
     UIImage* smallImage = [UIImage imageWithCGImage:subImageRef];
-    
+    UIGraphicsEndImageContext();
     return smallImage;
+}
+
++ (UIImage *)shearCenterImage:(UIImage * )editImage{
+    
+    return nil;
 }
 
 @end
@@ -87,9 +110,7 @@
 
 @implementation UIImage (ImageCache)
 
-- (void)CR_cacheImageWithAsset:(PHAsset *)asset completed:(void (^__nullable)(NSDictionary *__nullable info))completion{
-    
-    typeof(self) __weak weakSelf = self;
++ (void)CR_cacheImageWithAsset:(PHAsset *)asset completed:(void (^__nullable)(UIImage * _Nullable image, NSDictionary *__nullable info))completion{
     
     //请求大图界面，当切换图片时，取消上一张图片的请求，对于iCloud端的图片，可以节省流量
     static PHImageRequestID requestID = -1;
@@ -115,10 +136,11 @@
      PHImageErrorKey：如果没有图像，字典内的错误信息
      */
     
-    requestID = [[PHCachingImageManager defaultManager] requestImageDataForAsset:asset options:option resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+    requestID = [[PHCachingImageManager defaultManager] requestImageForAsset:asset targetSize:CGSizeMake(SCREENWIDTH, SCREENHEIGHT) contentMode:PHImageContentModeAspectFit options:option resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
         
-        weakSelf = 
-        
+        if (completion) {
+            completion(result, info);
+        }
     }];
 }
 

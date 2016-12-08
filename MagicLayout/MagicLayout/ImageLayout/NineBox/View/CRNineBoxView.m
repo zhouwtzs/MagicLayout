@@ -10,6 +10,7 @@
 
 #define FLOAT_SPACE 5.0f
 
+
 @implementation CRNineBoxView
 
 /*
@@ -29,6 +30,11 @@
     if (self) {
         
         [self createView];
+        
+        _photoModelDic = [[NSMutableDictionary alloc]init];
+        
+        _thumbImageDic = [[NSMutableDictionary alloc]init];
+    
     }
     return self;
 }
@@ -79,6 +85,21 @@
     NSInteger index = (int)(point.y/ww)*3+(int)(point.x/ww);
     
     return (UIImageView *) [self viewWithTag:800+index];
+}
+
+- (NSInteger)indexOfResultImageView{
+    
+    __block NSInteger index = 0;
+    [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if (obj == _resultImageView) {
+            
+            index = idx;
+            
+            *stop = YES;
+        }
+    }];
+    return index;
 }
 
 @end

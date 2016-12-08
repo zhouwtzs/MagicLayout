@@ -23,6 +23,10 @@ NSString * crnineboxphotocell = @"crnineboxphotocell";
     if (self) {
         
         [self createCollectionView];
+        
+        [self.photoCollectionView addGestureRecognizer:[self getPanGestureRecognizer]];
+        
+        [self.photoCollectionView addGestureRecognizer:[self getLongPressGesture]];
     }
     return self;
 }
@@ -49,8 +53,16 @@ NSString * crnineboxphotocell = @"crnineboxphotocell";
     
     [_photoCollectionView registerClass:[CRPhotoCollectionViewCell class] forCellWithReuseIdentifier:crnineboxphotocell];
     
-    _photoAssets = [[NSMutableArray alloc]initWithArray:[CRPhotoModel getAllAssetInPhotoAlbumWithAsceding:NO]];
-    
+    _photoAssets = [[NSMutableArray alloc]init];
+
+    [[CRPhotoModel getAllAssetInPhotoAlbumWithAsceding:NO] enumerateObjectsUsingBlock:^(PHAsset * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        CRPhotoModel * photoModel = [[CRPhotoModel alloc]init];
+        
+        photoModel.phasset = obj;
+        
+        [_photoAssets addObject:photoModel];
+    }];
 }
 
 #pragma mark - collection view delegate and data source
@@ -67,24 +79,40 @@ NSString * crnineboxphotocell = @"crnineboxphotocell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     //这里应该根据图片的尺寸来进行调整
     
-    PHAsset * asset = [_photoAssets objectAtIndex:indexPath.item];
-    
-    return [self sizeForAsset:asset];    
+    CRPhotoModel * photoModel = [_photoAssets objectAtIndex:indexPath.item];
+
+    return [self sizeForAsset:photoModel.phasset];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     CRPhotoCollectionViewCell * photoCell = [collectionView dequeueReusableCellWithReuseIdentifier:(NSString *)crnineboxphotocell forIndexPath:indexPath];
     
-    PHAsset * asset = [_photoAssets objectAtIndex:indexPath.item];
+    if (!photoCell.pan) {
+        
+        [photoCell addGestureRecognizer:[self getPanGestureRecognizer]];
+    }
+    if (!photoCell.longPress) {
+        
+        [photoCell addGestureRecognizer:[self getLongPressGesture]];
+    }
+    CRPhotoModel * photoModel = [_photoAssets objectAtIndex:indexPath.item];
     
-    photoCell.imageView.backgroundColor = [UIColor darkGrayColor];
-
-    [photoCell.imageView CR_setImageWithAsset:asset placeholderImage:nil completed:nil];
+    if (photoModel.fitImage) {
+        
+        photoCell.imageView.image = photoModel.fitImage;
+        
+    }else{
     
+        [photoCell.imageView CR_setImageWithAsset:photoModel.phasset placeholderImage:nil completed:^(UIImage * _Nonnull image, NSDictionary * _Nullable info) {
+            
+            photoModel.fitImage = image;
+        }];
+    }
     return photoCell;
 }
 
+//适配尺寸
 - (CGSize)sizeForAsset:(PHAsset *)asset{
     
     CGFloat ww = (CGFloat)asset.pixelWidth;
@@ -95,6 +123,92 @@ NSString * crnineboxphotocell = @"crnineboxphotocell";
     return CGSizeMake(HH*scale, HH);
 }
 
-#pragma mark - UIGestureRecognizer
+#pragma mark - gestureRecognizer
+- (UILongPressGestureRecognizer *)getLongPressGesture{
+    
+    UILongPressGestureRecognizer * longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressGesture:)];
+    
+    longPress.minimumPressDuration = 1.0f;
+    
+    longPress.delegate = self;
+    
+    _longPress = longPress;
+    
+    return longPress;
+}
+
+- (UIPanGestureRecognizer *)getPanGestureRecognizer{
+    
+    UIPanGestureRecognizer * pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panGesture:)];
+    
+    pan.delegate = self;
+    
+    _pan = pan;
+    
+    return pan;
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+    
+    if (gestureRecognizer == _longPress) {
+        
+        return YES;
+        
+    }else if (gestureRecognizer == _pan) {
+        
+        CGPoint translation = [_pan translationInView:self.photoCollectionView];
+        
+        if (fabs(translation.x) > fabs(translation.y)*0.8) {
+            
+            return NO;
+        }else{
+            return YES;
+        }
+    }
+    return YES;
+}
+
+#pragma mark - GestureRecognizer method
+
+//longPress
+- (void)longPressGesture:(UILongPressGestureRecognizer *)longPress{
+    
+    //选中图片，实现一个代理
+    if (longPress.state == UIGestureRecognizerStateBegan) {
+        
+        
+    }else if (longPress.state == UIGestureRecognizerStateEnded) {
+        //NSLog(@"longpress end");
+    }
+}
+
+//pan
+- (void)panGesture:(UIPanGestureRecognizer *)pan{
+    
+    CRPhotoCollectionViewCell * cell = (CRPhotoCollectionViewCell *)pan.view;
+    
+    if (_gestureCell && cell != _gestureCell ) {
+        return;
+    }
+    if (pan.state == UIGestureRecognizerStateBegan) {
+        
+        _gestureCell = cell;
+        
+        NSIndexPath * indexPath = [_photoCollectionView indexPathForCell:cell];
+        
+        _cellPhotoModel = [_photoAssets objectAtIndex:indexPath.item];
+    }else if (pan.state == UIGestureRecognizerStateEnded) {
+        
+        _gestureCell = nil;
+        
+        _cellPhotoModel = nil;
+    }
+    if ([self.delegate respondsToSelector:@selector(CRPhotoCollectionViewCell:panGestureRecognizer:photoModel:)]) {
+        
+        [self.delegate CRPhotoCollectionViewCell:_gestureCell panGestureRecognizer:pan photoModel:_cellPhotoModel];
+    }
+}
+
+
 
 @end

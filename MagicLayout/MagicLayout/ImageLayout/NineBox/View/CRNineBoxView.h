@@ -7,12 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CRPhotoModel.h"
 
 /*
  @brief 九宫格
  */
 @interface CRNineBoxView : UIView
 
+@property (nonatomic, weak) UIImageView * resultImageView;              //当前展示选中的九宫格的subbox
+
+@property (nonatomic, strong) NSMutableDictionary * photoModelDic;
+
+@property (nonatomic, strong) NSMutableDictionary * thumbImageDic;
 
 /**
  返回当前的point九宫格的第几个subview
@@ -28,5 +34,10 @@
  */
 - (UIImageView *)subViewInNineBoxWithPoint:(CGPoint)point;
 
+/**
+ 返回当前选中的subview是第几个
+ @return index
+ */
+- (NSInteger)indexOfResultImageView;
 
 @end

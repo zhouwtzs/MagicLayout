@@ -8,9 +8,7 @@
 
 #import "ViewController.h"
 
-#import "UIImage+CreateWithColor.h"
-
-#define __isH
+#import "UIImage+CRCategory.h"
 
 
 #define isHis() ([UIScreen mainScreen].bounds.size.width <  [UIScreen mainScreen].bounds.size.height)

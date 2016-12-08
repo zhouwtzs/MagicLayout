@@ -7,7 +7,7 @@
 //
 
 #import "CRSceneModel.h"
-#import "UIImage+CreateWithColor.h"
+#import "UIImage+CRCategory.h"
 
 @implementation CRSceneModel
 

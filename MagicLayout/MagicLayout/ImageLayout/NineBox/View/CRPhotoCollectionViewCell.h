@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 
 
-const static NSString * CRPhotoCollectionViewCelllongPress = @"CRPhotoCollectionViewCelllongPress";
-const static NSString * CRPhotoCollectionViewCellPan = @"CRPhotoCollectionViewCellPan";
+//const static NSString * CRPhotoCollectionViewCelllongPress = @"CRPhotoCollectionViewCelllongPress";
+//const static NSString * CRPhotoCollectionViewCellPan = @"CRPhotoCollectionViewCellPan";
 
 @interface CRPhotoCollectionViewCell : UICollectionViewCell<UIGestureRecognizerDelegate>
 

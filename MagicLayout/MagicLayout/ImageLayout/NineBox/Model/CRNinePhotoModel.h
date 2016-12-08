@@ -8,16 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <Photos/Photos.h>
 
 /*
  存储图片信息
  */
 @interface CRNinePhotoModel : NSObject
 
-@property (nonatomic, strong) UIImage * thumbImage;         //缩略图
+@property (nonatomic, strong) UIImage * thumbImage;         //缩略图,显示在九宫格之上
 
-@property (nonatomic, strong) UIImage * fitImage;           //合适的图
+@property (nonatomic, strong) UIImage * fitImage;           //合适的图，拖动时的尺寸
 
-@property (nonatomic, strong) UIImage * originalImage;      //原图
+@property (nonatomic, strong) UIImage * originalImage;      //预览图，大图
 
 @end

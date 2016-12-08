@@ -15,10 +15,15 @@
  */
 @interface CRPhotoModel : NSObject
 
-- (void)loadPhotoTest;
+@property (nonatomic, strong) UIImage * originalImage;      //预览图
+
+@property (nonatomic, strong) UIImage * fitImage;           //合适的图，拖动时的尺寸
+
+@property (nonatomic, strong) PHAsset * phasset;            //资源对象
+
+
 
 + (BOOL)canLibrary;
-
 
 /**
  得到相册内的所有图片资源

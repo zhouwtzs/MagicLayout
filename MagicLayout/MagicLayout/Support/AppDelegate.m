@@ -11,7 +11,7 @@
 #import "CRNineBoxViewController.h"
 #import "CRGuideViewController.h"
 #import "CRAdvertisementView.h"
-#import "UIImage+CreateWithColor.h"
+#import "UIImage+CRCategory.h"
 
 
 #define USING_AD 0              //是否加载广告页面

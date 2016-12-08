@@ -51,12 +51,20 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (UIImage *)shearImage:(UIImage * )editImage withFrame:(CGRect)imageFrame;
 
+/**
+ 裁剪图片,得到中心图片
+ @param editImage  原始图片
+ @return 处理完成的图片
+ */
++ (UIImage *)shearCenterImage:(UIImage * )editImage;
+
+
 @end
 
 
 @interface UIImage (ImageCache)
 
-- (void)CR_cacheImageWithAsset:(PHAsset *)asset completed:(void (^__nullable)(NSDictionary *__nullable info))completion;
++ (void)CR_cacheImageWithAsset:(PHAsset *)asset completed:(void (^__nullable)(UIImage * __nullable image, NSDictionary *__nullable info))completion;
 
 
 @end

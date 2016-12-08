@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImageView (AssetPhoto)
 
-- (void)CR_setImageWithAsset:(PHAsset *)asset placeholderImage:(UIImage * __nullable)placeholder completed:(void (^__nullable)(NSDictionary *__nullable info))completion;
+- (void)CR_setImageWithAsset:(PHAsset *)asset placeholderImage:(UIImage * __nullable)placeholder completed:(void (^__nullable)(UIImage * image,NSDictionary *__nullable info))completion;
 
 @end
 

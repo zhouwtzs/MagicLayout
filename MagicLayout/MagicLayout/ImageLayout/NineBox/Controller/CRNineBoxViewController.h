@@ -24,5 +24,6 @@
 
 @property (nonatomic, strong) CRNineBoxSegmentControl * segment;
 
+//@property (nonatomic, strong)
 
 @end

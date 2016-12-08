@@ -11,12 +11,6 @@
 
 @implementation CRPhotoModel
 
-- (void)loadPhotoTest{
-
-    //PHPhotoLibrary * library = [PHPhotoLibrary sharedPhotoLibrary];
-    
-    
-}
 
 + (BOOL)canLibrary{
     
