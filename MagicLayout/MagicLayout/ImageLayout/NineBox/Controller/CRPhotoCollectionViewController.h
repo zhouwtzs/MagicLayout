@@ -30,10 +30,6 @@
 
 @property (nonatomic, weak)id<CRPhotoCollectionViewGestureDelegate> delegate;
 
-@property (nonatomic, strong) UIPanGestureRecognizer * pan;
-
-@property (nonatomic, strong) UILongPressGestureRecognizer * longPress;
-
 @property (nonatomic, weak, readonly) CRPhotoCollectionViewCell * gestureCell;   //当前手势操作的cell
 
 @property (nonatomic, weak, readonly) CRPhotoModel * cellPhotoModel;             //对应的CRPhotoModel

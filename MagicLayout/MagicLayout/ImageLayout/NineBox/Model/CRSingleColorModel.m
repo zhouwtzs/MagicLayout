@@ -25,7 +25,7 @@
     return self;
 }
 
-+ (NSArray *)getSingleColorArray{
++ (NSArray<CRSingleColorModel *> *)getSingleColorArray{
     
     return @[SINGLECOLOR(blackColor,@"黑色"),
              SINGLECOLOR(darkGrayColor, @"深灰色"),

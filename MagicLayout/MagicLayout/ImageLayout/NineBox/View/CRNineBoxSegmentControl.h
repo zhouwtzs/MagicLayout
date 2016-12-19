@@ -11,11 +11,20 @@
 #import "CRSingleColorCollectionController.h"
 #import "CRSceneView.h"
 #import "CRValueForPicterView.h"
+
+@protocol CRColorSegmentControlDelegate <NSObject>
+
+- (void)CRColorSegmentSelected:(CGRect)rect panGestureRecognizer:(UIPanGestureRecognizer *)pan colorModel:(CRSingleColorModel *)colorModel;
+
+- (void)CRColorSegmentSelected:(CGRect)CGRect longPressGestureRecognizer:(UILongPressGestureRecognizer *)pan colorModel:(CRSingleColorModel *)colorModel;
+
+@end
+
 /*
  @brief 九宫格定制segment control
  建议在初次创建的时候就对frame进行初始化，如果需要在后期改变view的size，建议通过setBounds进行更改，setFrame可能会无效
  */
-@interface CRNineBoxSegmentControl : UIView
+@interface CRNineBoxSegmentControl : UIView<CRSingColorCollectionViewGestureDelegate,CRScentViewDelegate,CRValueForPicterViewDelegate>
 
 @property (nonatomic, strong) UIButton * singleColorBtn;
 
@@ -23,11 +32,12 @@
 
 @property (nonatomic, strong) UIButton * valueBtn;
 
-
 @property (nonatomic, strong) CRSingleColorCollectionController * singleColor;
 
 @property (nonatomic, strong) CRSceneView * scene;
 
 @property (nonatomic, strong) CRValueForPicterView * valuePicter;
+
+@property (nonatomic, weak)id<CRColorSegmentControlDelegate> delegate;
 
 @end

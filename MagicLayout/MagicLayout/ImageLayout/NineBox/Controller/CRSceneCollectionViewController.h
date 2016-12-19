@@ -13,13 +13,18 @@
 
 @protocol CRSceneCollectionViewControllerDelegate <NSObject>
 
+@optional
 - (void)sceneCollectionViewControllerDidEndScroll:(CRSceneCollectionViewController *)sceneCollection selectedIndex:(NSInteger)index;
+
+- (void)sceneCollectionViewControllerDidEndScroll:(CRSceneCollectionViewController *)sceneCollection sceneModel:(CRSceneModel *)sceneModel;
 
 @end
 
 @interface CRSceneCollectionViewController : NSObject<UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
 
 @property (nonatomic, strong) UICollectionView * sceneCollectionView;
+
+@property (nonatomic, strong) NSMutableArray<CRSceneModel *>* colorArray;
 
 @property (nonatomic, readonly, assign) BOOL isEndScroll;
 

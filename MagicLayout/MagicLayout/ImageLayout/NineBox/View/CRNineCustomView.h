@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+#import "CRSingleColorModel.h"
 #import "CRPhotoModel.h"
 
 /*
@@ -22,7 +23,7 @@
 
 @property (nonatomic, strong) CRPhotoModel * photoInfo;         //存储图片信息
 
-@property (nonatomic, strong) UIColor * color;                  //存储单色图片
+@property (nonatomic, strong) CRSingleColorModel * colorInfo;   //存储单色图片
 
 
 @end

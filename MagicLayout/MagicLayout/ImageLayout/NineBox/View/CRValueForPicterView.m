@@ -241,6 +241,10 @@
     
     _showColorView.layer.borderWidth = 1.0f;
     
+    [_showColorView addGestureRecognizer:[self getLongPressGesture]];
+    
+    [_showColorView addGestureRecognizer:[self getPanGestureRecognizer]];
+    
     [self addSubview:_showColorView];
 
     _redSubVlaueView = [[CRSubValueView alloc]initWithFrame:redSubRect color:RGBCOLOR(200, 0, 0)];
@@ -307,6 +311,27 @@
         }
     }
     return label;
+}
+
+- (UILongPressGestureRecognizer *)getLongPressGesture{
+    
+    UILongPressGestureRecognizer * longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressGesture:)];
+    
+    longPress.minimumPressDuration = 1.0f;
+    
+    longPress.delegate = self;
+    
+    return longPress;
+}
+
+
+- (UIPanGestureRecognizer *)getPanGestureRecognizer{
+    
+    UIPanGestureRecognizer * pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panGesture:)];
+    
+    pan.delegate = self;
+    
+    return pan;
 }
 
 #pragma mark - method
@@ -393,5 +418,30 @@
         [weakView removeFromSuperview];
     }];
 }
+
+#pragma mark - longPress method
+
+- (void)longPressGesture:(UILongPressGestureRecognizer *)longPress{
+    
+    //选中图片，实现一个代理
+    if (longPress.state == UIGestureRecognizerStateBegan) {
+        
+        
+    }else if (longPress.state == UIGestureRecognizerStateEnded) {
+        //NSLog(@"longpress end");
+    }
+}
+
+
+#pragma mark - pan method
+
+- (void)panGesture:(UIPanGestureRecognizer *)pan{
+    
+    if ([self.delegate respondsToSelector:@selector(CRValueForPicterViewColorShowView:panGestureRecognizer:)]) {
+        
+        [self.delegate CRValueForPicterViewColorShowView:_showColorView panGestureRecognizer:pan];
+    }
+}
+
 
 @end

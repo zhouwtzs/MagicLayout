@@ -56,7 +56,12 @@ NS_ASSUME_NONNULL_BEGIN
  @param editImage  原始图片
  @return 处理完成的图片
  */
-+ (UIImage *)shearCenterImage:(UIImage * )editImage;
++ (UIImage *)shearCenterImage:(UIImageView * )imageView;
+
+//根据imageview对image进行裁剪
++ (UIImage *)shearViewImage:(UIImageView *)imageView withFrame:(CGRect)frame;
+
+
 
 
 @end

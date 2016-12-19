@@ -12,7 +12,16 @@
  @brief 根据颜色的值来得到一张单色图片
  */
 @class CRSubValueView;
-@interface CRValueForPicterView : UIView
+
+@protocol CRValueForPicterViewDelegate <NSObject>
+
+- (void)CRValueForPicterViewColorShowView:(UIView *)colorView panGestureRecognizer:(UIPanGestureRecognizer *)pan ;
+
+- (void)CRValueForPicterViewColorShowView:(UIView *)colorView longPressGestureRecognizer:(UIPanGestureRecognizer *)pan ;
+
+@end
+
+@interface CRValueForPicterView : UIView<UIGestureRecognizerDelegate>
 
 @property (nonatomic, assign) BOOL showing;                 //正在展示
 
@@ -27,6 +36,8 @@
 @property (nonatomic, strong) UIView * editView;            //编辑
 
 @property (nonatomic, weak) UITextField * firstResponderText;
+
+@property (nonatomic, weak) id<CRValueForPicterViewDelegate>delegate;
 
 @end
 

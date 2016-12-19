@@ -8,6 +8,8 @@
 
 #import "CRNineBoxSegmentControl.h"
 
+#import "CRSingColorCollectionViewCell.h"
+#import "CRSceneModel.h"
 //#define BtnHeight 40
 //#define TapHeight 15
 //#define SubHeight_1 70
@@ -140,6 +142,8 @@ NSString * sf = @"sdf";
     CGRect rect = CGRectMake(0, 105, SCREENWIDTH, 90);
     
     _singleColor = [[CRSingleColorCollectionController alloc]init];
+    
+    _singleColor.delegate =self;
     
     [self insertSubview:_singleColor.singleColorCollectionView belowSubview:_singleColorBtn];
     
@@ -417,7 +421,59 @@ NSString * sf = @"sdf";
 
 - (void)hidSubView:(UIView *)view animal:(BOOL)animal{
 
+}
+
+#pragma mark - CRSingColorCollectionViewGestureDelegate
+- (void)CRSingColorCollectionViewCell:(CRSingColorCollectionViewCell *)collectionViewCell longPressGestureRecognizer:(UILongPressGestureRecognizer *)pan colorModel:(CRSingleColorModel *)colorModel{
+}
+
+- (void)CRSingColorCollectionViewCell:(CRSingColorCollectionViewCell *)collectionViewCell panGestureRecognizer:(UIPanGestureRecognizer *)pan colorModel:(CRSingleColorModel *)colorModel{
     
+    NSString * string = [NSString stringWithFormat:@"基础颜色＃%@",colorModel.colorName];
+    
+    CRSingleColorModel * model = [[CRSingleColorModel alloc]initWithColor:colorModel.color colorName:string];
+    
+    CGRect rect = [collectionViewCell convertRect:collectionViewCell.bounds toView:self];
+    
+    rect.size.height -= 14;
+    
+    if ([self.delegate respondsToSelector:@selector( CRColorSegmentSelected:panGestureRecognizer:colorModel:)]) {
+        [self.delegate CRColorSegmentSelected:rect panGestureRecognizer:pan colorModel:model];
+    }
+}
+
+#pragma mark - CRScentViewDelegate
+- (void)CRSceneViewColorShowView:(UIView *)colorView longPressGestureRecognizer:(UIPanGestureRecognizer *)pan photoModel:(CRSceneModel *)sceneModel{
+
+}
+
+- (void)CRSceneViewColorShowView:(UIView *)colorView panGestureRecognizer:(UIPanGestureRecognizer *)pan photoModel:(CRSceneModel *)sceneModel{
+
+    NSString * string = [NSString stringWithFormat:@"场景颜色＃%@",sceneModel.sceneName];
+    
+    CRSingleColorModel * model = [[CRSingleColorModel alloc]initWithColor:sceneModel.color colorName:string];
+    
+    CGRect rect = [colorView convertRect:colorView.bounds toView:self];
+    
+    if ([self.delegate respondsToSelector:@selector( CRColorSegmentSelected:panGestureRecognizer:colorModel:)]) {
+        [self.delegate CRColorSegmentSelected:rect panGestureRecognizer:pan colorModel:model];
+    }
+}
+
+#pragma mark - CRValueForPicterViewDelegate
+- (void)CRValueForPicterViewColorShowView:(UIView *)colorView longPressGestureRecognizer:(UIPanGestureRecognizer *)pan{
+
+}
+
+- (void)CRValueForPicterViewColorShowView:(UIView *)colorView panGestureRecognizer:(UIPanGestureRecognizer *)pan{
+    
+    CRSingleColorModel * model = [[CRSingleColorModel alloc]initWithColor:colorView.backgroundColor colorName:@"自定义颜色"];
+    
+    CGRect rect = [colorView convertRect:colorView.bounds toView:self];
+    
+    if ([self.delegate respondsToSelector:@selector( CRColorSegmentSelected:panGestureRecognizer:colorModel:)]) {
+        [self.delegate CRColorSegmentSelected:rect panGestureRecognizer:pan colorModel:model];
+    }
 }
 
 @end

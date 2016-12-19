@@ -58,13 +58,15 @@ NSString * crnineboxscenecell = @"crnineboxscenecell";
     _isEndScroll = YES;
     
     [self performSelector:@selector(scrollViewAdjustOffset:) withObject:nil afterDelay:0.5];
+    
+    _colorArray = [CRSceneModel getSceneArray].mutableCopy;
 }
 
 #pragma mark - collection view delegate and data source
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return [CRSceneModel getSceneArray].count;
+    return _colorArray.count;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -86,7 +88,7 @@ NSString * crnineboxscenecell = @"crnineboxscenecell";
     
     CRSceneCollectionViewCell * sceneCell = [collectionView dequeueReusableCellWithReuseIdentifier:crnineboxscenecell forIndexPath:indexPath];
     
-    [sceneCell setScene:[[CRSceneModel getSceneArray] objectAtIndex:indexPath.item]];
+    [sceneCell setScene:[_colorArray objectAtIndex:indexPath.item]];
     
     return sceneCell;
 }
@@ -134,9 +136,15 @@ NSString * crnineboxscenecell = @"crnineboxscenecell";
             _selectedCell.sceneImageView.transform = CGAffineTransformMakeTranslation(0, -10);
         }];
         
+        CRSceneModel * sceneModel = [_colorArray objectAtIndex:index];
+        
         if ([self.delegate respondsToSelector:@selector(sceneCollectionViewControllerDidEndScroll:selectedIndex:)]) {
             
             [self.delegate sceneCollectionViewControllerDidEndScroll:self selectedIndex:index];
+        }
+        if ([self.delegate respondsToSelector:@selector(sceneCollectionViewControllerDidEndScroll:sceneModel:)]) {
+            
+            [self.delegate sceneCollectionViewControllerDidEndScroll:self sceneModel:sceneModel];
         }
     }
 }

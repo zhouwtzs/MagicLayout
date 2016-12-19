@@ -15,7 +15,7 @@
 #import "UIImage+CRCategory.h"
 
 
-@interface CRNineBoxViewController ()<CRPhotoCollectionViewGestureDelegate>
+@interface CRNineBoxViewController ()<CRPhotoCollectionViewGestureDelegate,CRColorSegmentControlDelegate>
 
 @property (nonatomic, strong) CRNineCustomView * customImageView;       //显示当前拖拽的view上的图片
 
@@ -49,7 +49,6 @@
     
     [self createView];
 
-    [self addNotification];
     
 }
 
@@ -83,6 +82,8 @@
     //创建单色图片选择器
     _segment = [[CRNineBoxSegmentControl alloc]initWithFrame:segmentRect];
     
+    _segment.delegate = self;
+    
     [self.view addSubview:_segment];
     
     //九宫格
@@ -95,56 +96,106 @@
     _translucentCover.backgroundColor = [UIColor colorWithWhite:0 alpha:0.25];
 }
 
-- (void)addNotification{
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(singleColorLongPress:) name:(NSString *)CRSingColorCollectionViewCellLongPress object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(singleColorPan:) name:(NSString *)CRSingColorCollectionViewCellPan object:nil];
-    
-}
+#pragma mark - CRColorSegmentControlDelegate
 
-- (void)dealloc{
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:(NSString *)CRSingColorCollectionViewCellPan];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:(NSString *)CRSingColorCollectionViewCellLongPress];
-    }
-
-#pragma single color notification
-
-- (void)singleColorLongPress:(NSNotification *)notification{
-    
-    CRSingColorCollectionViewCell * collectionViewCell = (CRSingColorCollectionViewCell *)notification.object;
-    
-    UILongPressGestureRecognizer * longPress = [notification.userInfo objectForKey:@"GestureRecognizer"];
-    
-    if (!longPress) {
-        
-        return;
-    }
-    /*
-     检索当前九宫格是否有空位，如果有空位，那幕对空位进行部位，如果没有空位，谈框进行提示
-     */
+- (void)CRColorSegmentSelected:(CGRect)CGRect longPressGestureRecognizer:(UILongPressGestureRecognizer *)pan colorModel:(CRSingleColorModel *)colorModel{
 
 }
 
-- (void)singleColorPan:(NSNotification *)notification{
+- (void)CRColorSegmentSelected:(CGRect)rect panGestureRecognizer:(UIPanGestureRecognizer *)pan colorModel:(CRSingleColorModel *)colorModel{
     
-    CRSingColorCollectionViewCell * collectionViewCell = (CRSingColorCollectionViewCell *)notification.object;
-    
-    UIPanGestureRecognizer * pan = [notification.userInfo objectForKey:@"GestureRecognizer"];
-    
-    if (!pan) {
+    if (pan.state == UIGestureRecognizerStateBegan) {
         
-        return;
+        CGRect toSelfRect = [_segment convertRect:rect toView:self.view];
+        
+        if (!_customImageView) {
+            
+            _customImageView = [[CRNineCustomView alloc]initWithFrame:toSelfRect];
+        }
+        _customImageView.frame = toSelfRect;
+        
+        _customImageView.colorInfo = colorModel;
+        
+        _customImageView.photoInfo = nil;
+        
+        [self.view addSubview:_customImageView];
+        
+        [self showTranslucentCoverAnimated:YES];
+    }else if (pan.state == UIGestureRecognizerStateChanged) {
+        
+        CGPoint translation = [pan translationInView:pan.view];
+        
+        _customImageView.transform = CGAffineTransformMakeTranslation(translation.x, translation.y);
+        //判断手指是否在九宫格之内
+        CGPoint pointInNineBox = [pan locationInView:_nineBoxView];
+        
+        if (CGRectContainsPoint(_nineBoxView.bounds, pointInNineBox)) {
+            //判断手指具体在哪一个view
+            UIImageView * subBox = [_nineBoxView subViewInNineBoxWithPoint:pointInNineBox];
+            
+            if (_nineBoxView.resultImageView != subBox) {
+                
+                [UIView animateWithDuration:0.25 animations:^{
+                    
+                    _nineBoxView.resultImageView.alpha = 1.0f;
+                }];
+                [UIView animateWithDuration:0.25 animations:^{
+                    
+                    subBox.alpha = 0.62f;
+                    
+                }completion:^(BOOL finished) {
+                    
+                    _nineBoxView.resultImageView = subBox;
+                }];
+            }
+        }else{
+            //不再区域内，设置为空
+            [UIView animateWithDuration:0.25 animations:^{
+                
+                _nineBoxView.resultImageView.alpha = 1.0f;
+                
+            }completion:^(BOOL finished) {
+                
+                _nineBoxView.resultImageView = nil;
+            }];
+        }
+    }else if (pan.state == UIGestureRecognizerStateEnded) {
+        
+        [self hidTranslucentCoverAnimated:YES];
+        
+        if (_nineBoxView.resultImageView) {  //添加填充动画
+            
+            [self fillResultImageView:_nineBoxView.resultImageView photoModel:nil];
+            
+            NSUInteger index = [_nineBoxView indexOfResultImageView];
+            
+            [_nineBoxView.photoModelDic setObject:colorModel forKey:[NSString stringWithFormat:@"index%d",(int)index]];
+            
+            CGRect rect = [self.view convertRect:_nineBoxView.resultImageView.bounds fromView:_nineBoxView.resultImageView];  //resultimageview 的frame
+            
+            [UIView animateWithDuration:0.25 animations:^{
+                
+                _customImageView.frame = rect;
+                
+            } completion:^(BOOL finished) {
+                
+                _nineBoxView.resultImageView.alpha = 1.0f;
+                
+                _nineBoxView.backgroundColor = colorModel.color;
+                
+                [_customImageView removeFromSuperview];
+                
+                _customImageView.transform = CGAffineTransformIdentity;
+            }];
+
+        }else{  //直接移除临时图片
+            [_customImageView removeFromSuperview];
+            
+            _customImageView.transform = CGAffineTransformIdentity;
+        }
     }
-    UIImage * image = [UIImage createImageWithColor:collectionViewCell.contentView.backgroundColor];
+
     
-    CGRect cellColorRect = pan.view.bounds;
-    
-    cellColorRect.size.height -= 14;        //空出显示文字的laber
-    
-    [self panAnimationPan:pan image:image customBounds:cellColorRect];
 }
 
 #pragma mark - CRPhotoCollectionViewGestureDelegate
@@ -165,7 +216,7 @@
         }
         _customImageView.frame = toSelfRect;
         
-        _customImageView.color = nil;
+        _customImageView.colorInfo = nil;
         
         _customImageView.photoInfo = photoModel;
                 
@@ -223,82 +274,6 @@
 
 }
 
-#pragma pan animation
-- (void)panAnimationPan:(UIPanGestureRecognizer *)pan image:(UIImage *)image customBounds:(CGRect)bounds{
-    
-    if (pan.state == UIGestureRecognizerStateBegan) {
-    
-        CGRect toSelfRect = [pan.view convertRect:bounds toView:self.view];
-        
-        if (!_customImageView) {
-            
-            _customImageView = [[CRNineCustomView alloc]initWithFrame:toSelfRect];
-        }
-        _customImageView.frame = toSelfRect;
-        
-        _customImageView.color = nil;
-        
-        _customImageView.photoInfo.fitImage = image;
-        
-        //_customImageView.phot
-        
-        [self.view addSubview:_customImageView];
-        
-        [self showTranslucentCoverAnimated:YES];
-    }else if (pan.state == UIGestureRecognizerStateChanged) {
-        
-        CGPoint translation = [pan translationInView:pan.view];
-        
-        _customImageView.transform = CGAffineTransformMakeTranslation(translation.x, translation.y);
-        //判断手指是否在九宫格之内
-        CGPoint pointInNineBox = [pan locationInView:_nineBoxView];
-        
-        if (CGRectContainsPoint(_nineBoxView.bounds, pointInNineBox)) {
-            //判断手指具体在哪一个view
-            UIImageView * subBox = [_nineBoxView subViewInNineBoxWithPoint:pointInNineBox];
-            
-            if (_nineBoxView.resultImageView != subBox) {
-                
-                [UIView animateWithDuration:0.25 animations:^{
-                    
-                    _nineBoxView.resultImageView.alpha = 1.0f;
-                }];
-                [UIView animateWithDuration:0.25 animations:^{
-                    
-                    subBox.alpha = 0.62f;
-                    
-                }completion:^(BOOL finished) {
-                    
-                    _nineBoxView.resultImageView = subBox;
-                }];
-            }
-        }else{
-            //不再区域内，设置为空
-            [UIView animateWithDuration:0.25 animations:^{
-                
-                _nineBoxView.resultImageView.alpha = 1.0f;
-                
-            }completion:^(BOOL finished) {
-                
-                _nineBoxView.resultImageView = nil;
-            }];
-        }
-    }else if (pan.state == UIGestureRecognizerStateEnded) {
-        
-        [self hidTranslucentCoverAnimated:YES];
-        
-        if (_nineBoxView.resultImageView) {  //添加填充动画
-            
-            [self fillResultImageView:_nineBoxView.resultImageView photoModel:_customImageView.photoInfo];
-        }else{  //直接移除临时图片
-            [_customImageView removeFromSuperview];
-            
-            _customImageView.transform = CGAffineTransformIdentity;
-        }
-    }
-    
-}
-
 
 #pragma mark - self view animation
 //上层覆盖一个半透明的view，引起视觉差
@@ -316,6 +291,7 @@
     [self.view addSubview:_translucentCover];
 }
 
+//移除覆盖的半透明view
 - (void)hidTranslucentCoverAnimated:(BOOL)animated{
     
     if (animated) {
@@ -333,23 +309,23 @@
     }
 }
 
+//拖动结束之后，如果当前的customview的size与九宫格的词尺寸不相同，需要进行微调，添加一个动画
 - (void)fillResultImageView:(UIImageView *)imageView photoModel:(CRPhotoModel *)photoModel{
+    
+    
     
     NSUInteger index = [_nineBoxView indexOfResultImageView];
     
     [_nineBoxView.photoModelDic setObject:photoModel forKey:[NSString stringWithFormat:@"index%d",(int)index]];
     
     CGRect rect = [self.view convertRect:imageView.bounds fromView:imageView];  //resultimageview 的frame
-    UIImage * thumbImage = [UIImage shearImage:photoModel.fitImage withFrame:rect];
+    
+    UIImage * thumbImage = [UIImage shearCenterImage:_customImageView.infoImageView];
     
     
     //[_nineBoxView.thumbImageDic setObject:thumbImage forKey:[NSString stringWithFormat:@"index%d",(int)index]];
     
     CGRect customRect = _customImageView.frame;
-    
-    customRect.origin.x += _customImageView.transform.tx;
-    
-    customRect.origin.y += _customImageView.transform.ty;
     
     CGFloat scale = customRect.size.width/customRect.size.height;
     
@@ -357,7 +333,7 @@
         
         _customImageView.frame = rect;
 
-        if (fabs(scale-1) < 0.05){
+        if (fabs(scale-1) > 0.05){//size差距过大，需要进行动画
             
             CGSize minSize = [self minSizeContrast:rect.size oldSize:customRect.size];
 
@@ -374,6 +350,7 @@
         
         [_customImageView removeFromSuperview];
         
+        _customImageView.transform = CGAffineTransformIdentity;
     }];
 }
 

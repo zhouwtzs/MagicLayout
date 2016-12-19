@@ -50,6 +50,10 @@
     
     _colorShowView.layer.borderColor = WHITECOLOR(200).CGColor;
     
+    [_colorShowView addGestureRecognizer:[self getLongPressGesture]];;
+    
+    [_colorShowView addGestureRecognizer:[self getPanGestureRecognizer]];
+    
     [self addSubview:_colorShowView];
     
     _sceneNameLabelEN = [self nameLabel:leftLabelRect];
@@ -68,7 +72,9 @@
     
     [self addSubview:_colorVlaueLabel];
     
-    [self sceneCollectionViewControllerDidEndScroll:_scene selectedIndex:0];
+    //[self sceneCollectionViewControllerDidEndScroll:_scene selectedIndex:0];
+    
+    [self sceneCollectionViewControllerDidEndScroll:_scene sceneModel:_scene.colorArray.firstObject];
 }
 
 - (void)createCollectionView{
@@ -84,6 +90,26 @@
     [self addSubview:_scene.sceneCollectionView];
 }
 
+- (UILongPressGestureRecognizer *)getLongPressGesture{
+    
+    UILongPressGestureRecognizer * longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressGesture:)];
+    
+    longPress.minimumPressDuration = 1.0f;
+    
+    longPress.delegate = self;
+    
+    return longPress;
+}
+
+- (UIPanGestureRecognizer *)getPanGestureRecognizer{
+    
+    UIPanGestureRecognizer * pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panGesture:)];
+    
+    pan.delegate = self;
+    
+    return pan;
+}
+
 - (UILabel *)nameLabel:(CGRect)frame{
     
     UILabel * label= [[UILabel alloc]initWithFrame:frame];
@@ -97,13 +123,14 @@
     return label;
 }
 
-- (void)sceneCollectionViewControllerDidEndScroll:(CRSceneCollectionViewController *)sceneCollection selectedIndex:(NSInteger)index{
+#pragma mark - collectionViewDelegate
+- (void)sceneCollectionViewControllerDidEndScroll:(CRSceneCollectionViewController *)sceneCollection sceneModel:(CRSceneModel *)sceneModel{
     
-    UIColor * customColor = [[CRSceneModel getColorArray] objectAtIndex:index];
+    _sceneModel = sceneModel;
     
-    _colorShowView.backgroundColor = customColor;
+    _colorShowView.backgroundColor = sceneModel.color;
     
-    NSString * name = [[CRSceneModel getAllSceneNameArray] objectAtIndex:index];
+    NSString * name =sceneModel.sceneName;
     
     NSInteger loc = [name rangeOfString:@"#"].location;
     
@@ -115,12 +142,36 @@
     CGFloat green;
     CGFloat blue;
     
-    [customColor getRed:&red green:&green blue:&blue alpha:nil];
+    [sceneModel.color getRed:&red green:&green blue:&blue alpha:nil];
     
     NSString * colorString = [NSString stringWithFormat:@"R:%d\nG:%d\nB:%d",(int)(red*255),(int)(green*255),(int)(blue*255)];
     
     _colorVlaueLabel.text = colorString;
+}
+
+#pragma mark - longPress method
+
+- (void)longPressGesture:(UILongPressGestureRecognizer *)longPress{
     
+    //选中图片，实现一个代理
+    if (longPress.state == UIGestureRecognizerStateBegan) {
+        
+        
+    }else if (longPress.state == UIGestureRecognizerStateEnded) {
+        //NSLog(@"longpress end");
+    }
+}
+
+
+#pragma mark - pan method
+
+- (void)panGesture:(UIPanGestureRecognizer *)pan{
+   
+    
+    if ([self.delegate respondsToSelector:@selector(CRSceneViewColorShowView:panGestureRecognizer:photoModel:)]) {
+        
+        [self.delegate CRSceneViewColorShowView:_colorShowView panGestureRecognizer:pan photoModel:_sceneModel];
+    }
 }
 
 

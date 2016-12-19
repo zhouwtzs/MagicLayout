@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		B81C67A01DF056C000DCA45A /* CRNineCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = B81C679F1DF056C000DCA45A /* CRNineCustomView.m */; };
 		B81C67A21DF0638000DCA45A /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B81C67A11DF0638000DCA45A /* test.jpg */; };
-		B81C67A51DF077A000DCA45A /* CRNinePhotoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B81C67A41DF077A000DCA45A /* CRNinePhotoModel.m */; };
 		B84F40711D800E3700E20225 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B84F40701D800E3700E20225 /* main.m */; };
 		B84F40741D800E3700E20225 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B84F40731D800E3700E20225 /* AppDelegate.m */; };
 		B84F40771D800E3700E20225 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B84F40761D800E3700E20225 /* ViewController.m */; };
@@ -104,8 +103,6 @@
 		B81C679E1DF056C000DCA45A /* CRNineCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRNineCustomView.h; sourceTree = "<group>"; };
 		B81C679F1DF056C000DCA45A /* CRNineCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRNineCustomView.m; sourceTree = "<group>"; };
 		B81C67A11DF0638000DCA45A /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
-		B81C67A31DF077A000DCA45A /* CRNinePhotoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRNinePhotoModel.h; sourceTree = "<group>"; };
-		B81C67A41DF077A000DCA45A /* CRNinePhotoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRNinePhotoModel.m; sourceTree = "<group>"; };
 		B84F406C1D800E3700E20225 /* MagicLayout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagicLayout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B84F40701D800E3700E20225 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Support/main.m; sourceTree = "<group>"; };
 		B84F40721D800E3700E20225 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -431,8 +428,6 @@
 				B874B6761DC3371500656B9E /* CRSceneModel.h */,
 				B874B6771DC3371500656B9E /* CRSceneModel.m */,
 				B874B6791DC33DC200656B9E /* test.xib */,
-				B81C67A31DF077A000DCA45A /* CRNinePhotoModel.h */,
-				B81C67A41DF077A000DCA45A /* CRNinePhotoModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -671,7 +666,6 @@
 				B87EDFEE1DB8987100A6E7E1 /* CRGuideViewController.m in Sources */,
 				B887F6461DC7466700B4B36C /* CRSceneCollectionViewCell.m in Sources */,
 				B87EDFFF1DB8C33E00A6E7E1 /* CRNineBoxSegmentControl.m in Sources */,
-				B81C67A51DF077A000DCA45A /* CRNinePhotoModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -24,6 +24,6 @@
 /*
  得到包含单色图片对象的数组
  */
-+ (NSArray *)getSingleColorArray;
++ (NSArray<CRSingleColorModel *> *)getSingleColorArray;
 
 @end

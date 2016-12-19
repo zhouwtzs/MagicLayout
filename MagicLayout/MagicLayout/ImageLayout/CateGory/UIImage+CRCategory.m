@@ -8,6 +8,10 @@
 
 #import "UIImage+CRCategory.h"
 
+#define VIEW_W(v) (v.bounds.size.width)
+#define VIEW_H(v) (v.bounds.size.height)
+
+
 @implementation UIImage (CreateWithColor)
 
 + (UIImage *)createImageWithColor:(UIColor *)color
@@ -73,22 +77,11 @@
 
 + (UIImage *)shearImage:(UIImage * )editImage withFrame:(CGRect)imageFrame
 {
-//    CGImageRef imageRef = editImage.CGImage;
-//    
-//    CGRect subfre = CGRectIntegral(imageFrame);
-//    
-//    CGImageRef subImageRef = CGImageCreateWithImageInRect(imageRef, subfre);
-//    
-//    UIImage* smallImage = [UIImage imageWithCGImage:subImageRef];
-//    
-//    return smallImage;
-    
-    CGFloat finalWidth;         //最终的宽度
-    CGFloat finalHeignt;        //最终的高度
+    CGFloat finalWidth = imageFrame.size.width;         //最终的宽度
+    CGFloat finalHeignt = imageFrame.size.width;        //最终的高度
     if (editImage == nil) {
         return nil;
     }
-    //    CGRect finalRect = CGRectMake(imageFrame.origin.x, imageFrame.origin.x, MIN(editImage.size.width, imageFrame.size.width + imageFrame.origin.x), MIN(editImage.size.height, imageFrame.size.height + imageFrame.origin.y));
     CGRect finalRect = imageFrame;
     CGImageRef imageRef = editImage.CGImage;
     CGImageRef subImageRef = CGImageCreateWithImageInRect(imageRef, finalRect);
@@ -100,9 +93,30 @@
     return smallImage;
 }
 
-+ (UIImage *)shearCenterImage:(UIImage * )editImage{
++ (UIImage *)shearCenterImage:(UIImageView *)imageView{
     
-    return nil;
+    float side = MIN(VIEW_H(imageView), VIEW_W(imageView));
+    
+    CGRect centerRect = CGRectMake((VIEW_W(imageView)-side)*0.5, (VIEW_H(imageView)-side)*0.5, side, side);
+    
+    return [UIImage shearViewImage:imageView withFrame:centerRect];
+}
+
++ (UIImage *)shearViewImage:(UIImageView *)imageView withFrame:(CGRect)frame
+{
+    if (!imageView.image || !imageView.image) {
+        return nil;
+    }
+    //图片与图片视图的比例
+    //NSLog(@"%lf,%lf",imageView.image.size.width,imageView.image.size.height);
+    float scale =  imageView.image.size.width/imageView.bounds.size.width;
+    
+    CGRect shearRect = CGRectMake(frame.origin.x * scale * imageView.transform.a ,
+                                  frame.origin.y * scale * imageView.transform.d,
+                                  frame.size.width * scale * imageView.transform.a,
+                                  frame.size.height * scale * imageView.transform.d);
+    
+    return [UIImage shearImage:imageView.image withFrame:shearRect];
 }
 
 @end

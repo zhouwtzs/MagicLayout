@@ -74,6 +74,7 @@
         
         _photoInfo.originalImage = image;
     }];
+    
 }
 
 

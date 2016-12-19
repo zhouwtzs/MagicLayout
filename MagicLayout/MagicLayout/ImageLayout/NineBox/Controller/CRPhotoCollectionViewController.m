@@ -23,10 +23,6 @@ NSString * crnineboxphotocell = @"crnineboxphotocell";
     if (self) {
         
         [self createCollectionView];
-        
-        [self.photoCollectionView addGestureRecognizer:[self getPanGestureRecognizer]];
-        
-        [self.photoCollectionView addGestureRecognizer:[self getLongPressGesture]];
     }
     return self;
 }
@@ -91,10 +87,14 @@ NSString * crnineboxphotocell = @"crnineboxphotocell";
     if (!photoCell.pan) {
         
         [photoCell addGestureRecognizer:[self getPanGestureRecognizer]];
+        
+        photoCell.pan = [self getPanGestureRecognizer];
     }
     if (!photoCell.longPress) {
         
         [photoCell addGestureRecognizer:[self getLongPressGesture]];
+        
+        photoCell.longPress = [self getLongPressGesture];
     }
     CRPhotoModel * photoModel = [_photoAssets objectAtIndex:indexPath.item];
     
@@ -132,8 +132,6 @@ NSString * crnineboxphotocell = @"crnineboxphotocell";
     
     longPress.delegate = self;
     
-    _longPress = longPress;
-    
     return longPress;
 }
 
@@ -143,20 +141,18 @@ NSString * crnineboxphotocell = @"crnineboxphotocell";
     
     pan.delegate = self;
     
-    _pan = pan;
-    
     return pan;
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
     
-    if (gestureRecognizer == _longPress) {
+    if ([gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]]) {
         
         return YES;
         
-    }else if (gestureRecognizer == _pan) {
+    }else if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
         
-        CGPoint translation = [_pan translationInView:self.photoCollectionView];
+        CGPoint translation = [(UIPanGestureRecognizer *)gestureRecognizer translationInView:self.photoCollectionView];
         
         if (fabs(translation.x) > fabs(translation.y)*0.8) {
             
@@ -208,7 +204,6 @@ NSString * crnineboxphotocell = @"crnineboxphotocell";
         [self.delegate CRPhotoCollectionViewCell:_gestureCell panGestureRecognizer:pan photoModel:_cellPhotoModel];
     }
 }
-
 
 
 @end
