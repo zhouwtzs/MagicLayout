@@ -15,16 +15,13 @@
  */
 @interface CRNineBoxView : UIView
 
+#pragma mark - 从外部选中到九宫格
 @property (nonatomic, weak) UIImageView * resultImageView;              //当前展示选中的九宫格的subbox
 
-/*
- 用来存储九宫格中颜色／图片信息，初始状态存储CRSingleColorModel 基础，白色
- */
+ //用来存储九宫格中颜色／图片信息，初始状态存储CRSingleColorModel 基础，白色
 @property (nonatomic, strong, readonly) NSMutableArray * infoArray;
 
-/*
- 用来存储九宫格中的图片信息，初始值为白色单像素图片
- */
+ //用来存储九宫格中的图片信息，初始值为白色单像素图片
 @property (nonatomic, strong, readonly) NSMutableArray * thumbImageArray;
 
 /**
@@ -58,5 +55,16 @@
  */
 - (void)setColorInfo:(CRSingleColorModel *)colorModel ForIndex:(NSInteger)index;
 
+
+#pragma mark - 内部拖动
+
+//拖动手势，拖动内部的view 进行位置变换
+@property (nonatomic, strong) UIPanGestureRecognizer * panGes;
+
+//长按显示详细信息
+@property (nonatomic, strong) UILongPressGestureRecognizer * longPress;
+
+//单击，双击事件
+@property (nonatomic, strong) UITapGestureRecognizer * tap;
 
 @end

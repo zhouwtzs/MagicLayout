@@ -160,6 +160,8 @@ NSString * sf = @"sdf";
     
     _scene = [[CRSceneView alloc]initWithFrame:rect];
     
+    _scene.delegate = self;
+    
     [self insertSubview:_scene belowSubview:_singleColorBtn];
     
     //_scene.sceneCollectionView.backgroundColor = [UIColor blueColor];
@@ -176,6 +178,8 @@ NSString * sf = @"sdf";
     //_valuePicter.backgroundColor = [UIColor blueColor];
     
     _valuePicter.showing = NO;
+    
+    _valuePicter.delegate = self;
     
     [self insertSubview:_valuePicter belowSubview:_singleColorBtn];
     

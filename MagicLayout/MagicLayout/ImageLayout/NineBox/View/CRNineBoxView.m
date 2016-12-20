@@ -155,6 +155,54 @@
     [_thumbImageArray replaceObjectAtIndex:index withObject:thumbImage];
 }
 
+#pragma mark - GestureRecognizer
+
+- (UILongPressGestureRecognizer *)getLongPressGesture{
+    
+    UILongPressGestureRecognizer * longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressGesture:)];
+    
+    longPress.minimumPressDuration = 1.0f;
+    
+    //longPress.delegate = self;
+    
+    return longPress;
+}
+
+- (UIPanGestureRecognizer *)getPanGestureRecognizer{
+    
+    UIPanGestureRecognizer * pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panGesture:)];
+    
+    //pan.delegate = self;
+    
+    return pan;
+}
+
+//longPress
+- (void)longPressGesture:(UILongPressGestureRecognizer *)longPress{
+    
+    //选中图片，实现一个代理
+    if (longPress.state == UIGestureRecognizerStateBegan) {
+        
+        
+    }else if (longPress.state == UIGestureRecognizerStateEnded) {
+        //NSLog(@"longpress end");
+    }
+}
+
+//pan
+- (void)panGesture:(UIPanGestureRecognizer *)pan{
+    
+    if (pan.state == UIGestureRecognizerStateBegan) {
+        
+       
+    }else if (pan.state == UIGestureRecognizerStateEnded) {
+        
+        
+    }else if (pan.state == UIGestureRecognizerStateChanged) {
+        
+         
+    }
+}
 
 @end
 
