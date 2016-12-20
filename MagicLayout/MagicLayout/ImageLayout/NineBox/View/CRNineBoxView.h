@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CRPhotoModel.h"
+#import "CRSingleColorModel.h"
 
 /*
  @brief 九宫格
@@ -16,9 +17,15 @@
 
 @property (nonatomic, weak) UIImageView * resultImageView;              //当前展示选中的九宫格的subbox
 
-@property (nonatomic, strong) NSMutableDictionary * photoModelDic;
+/*
+ 用来存储九宫格中颜色／图片信息，初始状态存储CRSingleColorModel 基础，白色
+ */
+@property (nonatomic, strong, readonly) NSMutableArray * infoArray;
 
-@property (nonatomic, strong) NSMutableDictionary * thumbImageDic;
+/*
+ 用来存储九宫格中的图片信息，初始值为白色单像素图片
+ */
+@property (nonatomic, strong, readonly) NSMutableArray * thumbImageArray;
 
 /**
  返回当前的point九宫格的第几个subview
@@ -39,5 +46,17 @@
  @return index
  */
 - (NSInteger)indexOfResultImageView;
+
+
+/*
+ 设置展示view的图片
+ */
+- (void)setPhotoInfo:(CRPhotoModel *)photoInfo thumdImage:(UIImage *)thumbImage ForIndex:(NSInteger)index;
+
+/*
+ 设置展示view的颜色
+ */
+- (void)setColorInfo:(CRSingleColorModel *)colorModel ForIndex:(NSInteger)index;
+
 
 @end

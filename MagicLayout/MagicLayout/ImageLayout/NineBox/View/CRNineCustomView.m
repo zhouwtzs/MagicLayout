@@ -39,8 +39,6 @@
         _infoImageView = [[UIImageView alloc]initWithFrame:self.bounds];
         
         [self addSubview:_infoImageView];
-        
-        _photoInfo = [[CRPhotoModel alloc]init];
     }
     return self;
 }
@@ -66,15 +64,37 @@
 #pragma mark - method
 - (void)setPhotoInfo:(CRPhotoModel *)photoInfo{
     
-    _photoInfo = photoInfo;
-    
+    if (!photoInfo) {
+        
+        self.infoImageView.image = nil;
+        
+        _photoInfo = photoInfo;
+
+        return;
+    }
+    self.infoImageView.backgroundColor = COLOR(whiteColor);
+
     self.infoImageView.image = photoInfo.fitImage;
     
     [UIImage CR_cacheImageWithAsset:photoInfo.phasset completed:^(UIImage * _Nullable image, NSDictionary * _Nullable info) {
         
         _photoInfo.originalImage = image;
     }];
+}
+
+- (void)setColorInfo:(CRSingleColorModel *)colorInfo{
     
+    if (!colorInfo) {
+        
+        self.infoImageView.backgroundColor = COLOR(whiteColor);
+        
+        _colorInfo = colorInfo;
+
+        return;
+    }
+    self.infoImageView.image = nil;
+    
+    self.infoImageView.backgroundColor = colorInfo.color;
 }
 
 

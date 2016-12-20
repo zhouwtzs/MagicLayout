@@ -193,15 +193,16 @@ NSString * crnineboxphotocell = @"crnineboxphotocell";
         NSIndexPath * indexPath = [_photoCollectionView indexPathForCell:cell];
         
         _cellPhotoModel = [_photoAssets objectAtIndex:indexPath.item];
-    }else if (pan.state == UIGestureRecognizerStateEnded) {
-        
-        _gestureCell = nil;
-        
-        _cellPhotoModel = nil;
     }
     if ([self.delegate respondsToSelector:@selector(CRPhotoCollectionViewCell:panGestureRecognizer:photoModel:)]) {
         
         [self.delegate CRPhotoCollectionViewCell:_gestureCell panGestureRecognizer:pan photoModel:_cellPhotoModel];
+    }
+    if (pan.state == UIGestureRecognizerStateEnded) {
+        
+        _gestureCell = nil;
+        
+        _cellPhotoModel = nil;
     }
 }
 

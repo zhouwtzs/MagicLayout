@@ -8,6 +8,8 @@
 
 #import "CRNineBoxView.h"
 
+#import "UIImage+CRCategory.h"
+
 #define FLOAT_SPACE 5.0f
 
 
@@ -31,27 +33,42 @@
         
         [self createView];
         
-        _photoModelDic = [[NSMutableDictionary alloc]init];
-        
-        _thumbImageDic = [[NSMutableDictionary alloc]init];
-    
+        [self createData];
     }
     return self;
 }
 
 #pragma mark - subBox
+- (void)createData{
+    
+    _infoArray = [[NSMutableArray alloc]init];
+    
+    _thumbImageArray = [[NSMutableArray alloc]init];
+    
+    CRSingleColorModel * colorModel = [[CRSingleColorModel alloc]initWithColor:[UIColor whiteColor] colorName:@"白色"];
+    
+    UIImage * image = [UIImage createImageWithColor:[UIColor whiteColor]];
+
+    for (NSInteger i = 0; i < 9; i++) {
+        
+        [_infoArray addObject:colorModel];
+        
+        [_thumbImageArray addObject:image];
+    }
+}
+
 - (UIImageView *)getSubBoxWithFrame:(CGRect)frame{
     
     UIImageView * subImageView = [[UIImageView alloc]initWithFrame:frame];
     
-    subImageView.backgroundColor = RGBCOLOR(164, 158, 134);
+    subImageView.backgroundColor = [UIColor whiteColor];
         
     return subImageView;
 }
 
 - (void)createView{
     
-    self.backgroundColor = WHITECOLOR(250);
+    self.backgroundColor = RGBCOLOR(164, 158, 134);
     
     float ww = (self.bounds.size.width-FLOAT_SPACE*4)/3;
     
@@ -101,6 +118,43 @@
     }];
     return index;
 }
+#pragma mark - set info
+- (void)setColorInfo:(CRSingleColorModel *)colorModel ForIndex:(NSInteger)index{
+    
+    UIImageView * subImageView = [self viewWithTag:800+index];
+    
+    if (!subImageView) {
+        
+        return;
+    }
+    subImageView.image = nil;
+    
+    subImageView.backgroundColor = colorModel.color;
+    
+    [_infoArray replaceObjectAtIndex:index withObject:colorModel];
+    
+    UIImage * thumbImage = [UIImage createImageWithColor:colorModel.color];
+    
+    [_thumbImageArray replaceObjectAtIndex:index withObject:thumbImage];
+}
+
+- (void)setPhotoInfo:(CRPhotoModel *)photoInfo thumdImage:(UIImage *)thumbImage ForIndex:(NSInteger)index{
+    
+    UIImageView * subImageView = [self viewWithTag:800+index];
+    
+    if (!subImageView) {
+        
+        return;
+    }
+    subImageView.backgroundColor = [UIColor whiteColor];
+    
+    subImageView.image = thumbImage;
+    
+    [_infoArray replaceObjectAtIndex:index withObject:photoInfo];
+    
+    [_thumbImageArray replaceObjectAtIndex:index withObject:thumbImage];
+}
+
 
 @end
 

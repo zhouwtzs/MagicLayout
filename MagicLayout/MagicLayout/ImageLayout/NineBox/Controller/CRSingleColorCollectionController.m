@@ -161,15 +161,16 @@ NSString * crnineboxsinglecolorcell = @"crnineboxsinglecolorcell";
         NSIndexPath * indexPath = [_singleColorCollectionView indexPathForCell:cell];
         
         _cellColorModel = [_colorsArray objectAtIndex:indexPath.item];
-    }else if (pan.state == UIGestureRecognizerStateEnded) {
-        
-        _gestureCell = nil;
-        
-        _cellColorModel = nil;
     }
     if ([self.delegate respondsToSelector:@selector(CRSingColorCollectionViewCell:panGestureRecognizer:colorModel:)]) {
         
         [self.delegate CRSingColorCollectionViewCell:_gestureCell panGestureRecognizer:pan colorModel:_cellColorModel];
+    }
+    if (pan.state == UIGestureRecognizerStateEnded) {
+        
+        _gestureCell = nil;
+        
+        _cellColorModel = nil;
     }
 }
 
