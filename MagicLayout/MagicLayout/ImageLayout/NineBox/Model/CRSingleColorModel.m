@@ -25,6 +25,11 @@
     return self;
 }
 
++ (instancetype)defaultColorModel{
+    
+    return SINGLECOLOR(whiteColor, @"白色");
+}
+
 + (NSArray<CRSingleColorModel *> *)getSingleColorArray{
     
     return @[SINGLECOLOR(blackColor,@"黑色"),

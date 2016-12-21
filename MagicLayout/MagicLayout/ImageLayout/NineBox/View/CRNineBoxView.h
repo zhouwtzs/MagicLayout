@@ -44,7 +44,6 @@
  */
 - (NSInteger)indexOfResultImageView;
 
-
 /*
  设置展示view的图片
  */
@@ -55,11 +54,24 @@
  */
 - (void)setColorInfo:(CRSingleColorModel *)colorModel ForIndex:(NSInteger)index;
 
+- (UIImageView *)subImageWithIndex:(NSInteger)index;
+
+- (NSInteger)indexOfSubimage:(UIImageView *)subImageView;
+
+- (void)exchangeInfoAtIndex:(NSInteger)index1 withInfoAtIndex:(NSInteger)index2;
+
+- (void)reloadInfoAtIndex:(NSArray *)indexs;
 
 #pragma mark - 内部拖动
 
+//内部拖动的customView
+@property (nonatomic, strong) UIImageView * customView;
+
 //拖动手势，拖动内部的view 进行位置变换
 @property (nonatomic, strong) UIPanGestureRecognizer * panGes;
+
+//拖动手势替换用的临时view
+@property (nonatomic, strong) UIImageView * selectedView;
 
 //长按显示详细信息
 @property (nonatomic, strong) UILongPressGestureRecognizer * longPress;

@@ -21,6 +21,8 @@
 
 - (instancetype)initWithColor:(UIColor *)color colorName:(NSString *)name;
 
++ (instancetype)defaultColorModel;          //返回默认colormodel，注意，这个不是单例
+
 /*
  得到包含单色图片对象的数组
  */
