@@ -15,6 +15,9 @@
 #import "UIImage+CRCategory.h"
 
 
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKUI/ShareSDK+SSUI.h>
+
 @interface CRNineBoxViewController ()<CRPhotoCollectionViewGestureDelegate,CRColorSegmentControlDelegate>
 
 @property (nonatomic, strong) CRNineCustomView * customImageView;       //显示当前拖拽的view上的图片
@@ -96,6 +99,12 @@
     _translucentCover = [[UIView alloc]initWithFrame:CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT-64)];
     
     _translucentCover.backgroundColor = COLOR(clearColor);
+    
+    //右侧发送按钮
+    _rightBarButton  = [[UIBarButtonItem alloc]initWithTitle:@"发布" style:UIBarButtonItemStyleDone target:self action:@selector(DynamicShare:)];
+    
+    self.navigationItem.rightBarButtonItem = _rightBarButton;
+    
 }
 
 #pragma mark - CRColorSegmentControlDelegate
@@ -319,6 +328,49 @@
     return minSize;
 }
 
+
+#pragma mark - 发布一条动态
+- (void)DynamicShare{
+    
+    //[CRDynamicShareManager DynamicShareImages:_nineBoxView.thumbImageArray text:@"一个简单的测试" location:nil];
+    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    [shareParams SSDKSetupShareParamsByText:@"分享内容"
+                                     images:_nineBoxView.thumbImageArray
+                                        url:[NSURL URLWithString:@"http://mob.com"]
+                                      title:@"分享标题"
+                                       type:SSDKContentTypeAuto];
+    [ShareSDK showShareActionSheet:nil
+                             items:nil
+                       shareParams:shareParams
+               onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+                   
+                   switch (state) {
+                       case SSDKResponseStateSuccess:
+                       {
+                           UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                               message:nil
+                                                                              delegate:nil
+                                                                     cancelButtonTitle:@"确定"
+                                                                     otherButtonTitles:nil];
+                           [alertView show];
+                           break;
+                       }
+                       case SSDKResponseStateFail:
+                       {
+                           UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                           message:[NSString stringWithFormat:@"%@",error]
+                                                                          delegate:nil
+                                                                 cancelButtonTitle:@"OK"
+                                                                 otherButtonTitles:nil, nil];
+                           [alert show];
+                           break;
+                       }
+                       default:
+                           break;
+                   }
+                   
+               }];
+}
 
 
 /*

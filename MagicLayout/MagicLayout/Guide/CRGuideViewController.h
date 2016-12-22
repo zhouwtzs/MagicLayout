@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+//引导页
 @interface CRGuideViewController : UIViewController
 
 @property (nonatomic, strong) UIScrollView * guideScroll;

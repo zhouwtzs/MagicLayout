@@ -13,6 +13,18 @@
 #import "CRAdvertisementView.h"
 #import "UIImage+CRCategory.h"
 
+#import "CRShareIdenHeader.h"
+
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKConnector/ShareSDKConnector.h>
+
+#import <TencentOpenAPI/TencentOAuth.h>             //QQ
+#import <TencentOpenAPI/QQApiInterface.h>           //QQ空间
+
+#import "WXApi.h"                           //微信
+
+#import "WeiboSDK.h"                        //微博
+
 
 #define USING_AD 0              //是否加载广告页面
 #define USING_LOADING 0         //是否加载引导页
@@ -50,6 +62,61 @@
     [self.window makeKeyAndVisible];
     
     [self createRootViewController];
+    
+    [ShareSDK registerApp:CR_SHARE_AppKey
+     
+          activePlatforms:@[@(SSDKPlatformTypeQQ),
+                            @(SSDKPlatformTypeSinaWeibo),
+                            @(SSDKPlatformTypeWechat),
+                            @(SSDKPlatformTypeSMS)]
+     
+                 onImport:^(SSDKPlatformType platformType) {
+                     
+                     switch (platformType) {
+                         case SSDKPlatformTypeQQ:
+                             [ShareSDKConnector connectQQ:[QQApiInterface class] tencentOAuthClass:[TencentOAuth class]];
+                             break;
+                         case SSDKPlatformTypeSinaWeibo:
+                             [ShareSDKConnector connectWeibo:[WeiboSDK class]];
+                             break;
+                         case SSDKPlatformTypeWechat:
+                             [ShareSDKConnector connectWeChat:[WXApi class]];
+                             break;
+                         
+                         default:
+                             break;
+                     }
+                     
+                 } onConfiguration:^(SSDKPlatformType platformType, NSMutableDictionary *appInfo) {
+                     
+                     switch (platformType) {
+                         case SSDKPlatformTypeQQ:
+                             
+                             [appInfo SSDKSetupQQByAppId:CR_SHARE_QQ_AppID
+                                                  appKey:CR_SHARE_QQ_AppKey
+                                                authType:SSDKAuthTypeBoth];
+                             
+                             break;
+                        case SSDKPlatformTypeSinaWeibo:
+                             
+                             [appInfo SSDKSetupSinaWeiboByAppKey:CR_SHARE_WB_AppID
+                                                       appSecret:CR_SHARE_QQ_AppKey
+                                                     redirectUri:CR_SHARE_WB_RedirectUri
+                                                        authType:SSDKAuthTypeBoth];
+                             
+                             break;
+                        case SSDKPlatformTypeWechat:
+                             
+                             [appInfo SSDKSetupWeChatByAppId:CR_SHARE_WX_AppID
+                                                   appSecret:CR_SHARE_WX_AppSecret];
+                             
+                             break;
+                             
+                         default:
+                             break;
+                     }
+                     
+                 }];
     
     return YES;
 }

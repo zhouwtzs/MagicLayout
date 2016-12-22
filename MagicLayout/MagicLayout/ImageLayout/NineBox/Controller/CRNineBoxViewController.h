@@ -11,6 +11,7 @@
 #import "CRPhotoCollectionViewController.h"
 #import "CRNineBoxSegmentControl.h"
 #import "CRNineBoxView.h"
+#import "CRDynamicShareManager.h"
 
 /*
  @brief 九宫格视图控制器
@@ -18,12 +19,21 @@
 
 @interface CRNineBoxViewController : UIViewController
 
+//九宫格view
 @property (nonatomic, strong) CRNineBoxView * nineBoxView;
 
+//照片选择器
 @property (nonatomic, strong) CRPhotoCollectionViewController * photoCollect;
 
+//单色图片选择器
 @property (nonatomic, strong) CRNineBoxSegmentControl * segment;
 
-//@property (nonatomic, strong)
+//渐变色选择器(未开放)
+//清空按钮(未实现)
+
+//发布按钮
+@property (nonatomic, strong) UIBarButtonItem * rightBarButton;
+
+@property (nonatomic, strong) CRDynamicShareManager * shareManager;
 
 @end

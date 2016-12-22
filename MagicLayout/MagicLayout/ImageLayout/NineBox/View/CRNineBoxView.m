@@ -290,9 +290,6 @@
             //在边界范围
             UIImageView * subImageView = [self subViewInNineBoxWithPoint:locationPoint];
             
-            NSInteger ind = [self indexOfSubBoxWithPoint:locationPoint];
-            
-            NSLog(@"%d",(int)ind);
             if (_resultImageView != subImageView) {
                 
                 _resultImageView.alpha = 1.0f;
