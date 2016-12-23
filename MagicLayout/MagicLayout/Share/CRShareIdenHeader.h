@@ -23,8 +23,8 @@
 #define CR_SHARE_QQ_AppID       @"1105903278"
 #define CR_SHARE_QQ_AppKey      @"L9ZKkeNK0LKmuX0g"
 
-#define CR_SHARE_WB_AppID       @""
-#define CR_SHARE_WB_AppSecret   @""
+#define CR_SHARE_WB_AppID       @"726603626"
+#define CR_SHARE_WB_AppSecret   @"a72cf30652be903459c825de80c2804a"
 #define CR_SHARE_WB_RedirectUri @"http://www.sharesdk.cn"
 
 #define CR_LOCATION_G_key       @"b4c4b137ff6b57303f3055ea60936a4d"

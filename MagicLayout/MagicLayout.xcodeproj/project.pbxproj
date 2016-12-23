@@ -1050,7 +1050,7 @@
 					"$(PROJECT_DIR)/MagicLayout/Share/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/MagicLayout/Share/ShareSDK/Support/PlatformSDK/WeChatSDK",
 				);
-				OTHER_LDFLAGS = "-Objc";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = person.zhouwtzs.MagicLayout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1085,7 +1085,7 @@
 					"$(PROJECT_DIR)/MagicLayout/Share/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/MagicLayout/Share/ShareSDK/Support/PlatformSDK/WeChatSDK",
 				);
-				OTHER_LDFLAGS = "-Objc";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = person.zhouwtzs.MagicLayout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
