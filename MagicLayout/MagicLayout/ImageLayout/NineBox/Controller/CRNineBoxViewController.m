@@ -332,6 +332,7 @@
 #pragma mark - 发布一条动态
 - (void)DynamicShare{
     
+<<<<<<< Updated upstream
     [CRDynamicShareManager DynamicShareImages:_nineBoxView.thumbImageArray text:@"一个简单的测试" location:nil];
 //    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
 //    [shareParams SSDKSetupShareParamsByText:@"分享内容"
@@ -371,6 +372,47 @@
 //                   }
 //                   
 //               }];
+=======
+    //[CRDynamicShareManager DynamicShareImages:_nineBoxView.thumbImageArray text:@"一个简单的测试" location:nil];
+        
+    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    [shareParams SSDKSetupShareParamsByText:@"分享内容"
+                                     images:@[[UIImage imageNamed:@"test.jpg"]]
+                                        url:[NSURL URLWithString:@"https://mob.com"]
+                                      title:@"分享标题"
+                                       type:SSDKContentTypeAuto];
+    [ShareSDK showShareActionSheet:nil
+                             items:nil
+                       shareParams:shareParams
+               onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+                   
+                   switch (state) {
+                       case SSDKResponseStateSuccess:
+                       {
+                           UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                               message:nil
+                                                                              delegate:nil
+                                                                     cancelButtonTitle:@"确定"
+                                                                     otherButtonTitles:nil];
+                           [alertView show];
+                           break;
+                       }
+                       case SSDKResponseStateFail:
+                       {
+                           UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                           message:[NSString stringWithFormat:@"%@",error]
+                                                                          delegate:nil
+                                                                 cancelButtonTitle:@"OK"
+                                                                 otherButtonTitles:nil, nil];
+                           [alert show];
+                           break;
+                       }
+                       default:
+                           break;
+                   }
+                   
+               }];
+>>>>>>> Stashed changes
 }
 
 
