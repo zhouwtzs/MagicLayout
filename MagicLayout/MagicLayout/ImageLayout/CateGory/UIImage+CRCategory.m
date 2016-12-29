@@ -16,7 +16,7 @@
 
 + (UIImage *)createImageWithColor:(UIColor *)color
 {
-    return [UIImage createImageWithColor:color size:CGSizeMake(1.0f, 1.0f)];
+    return [UIImage createImageWithColor:color size:CGSizeMake(150.0f, 150.0f)];
 }
 
 + (UIImage *)createImageWithColor:(UIColor *)color size:(CGSize)size{

@@ -112,6 +112,7 @@
 		B887F6431DC7386800B4B36C /* 4.12.png in Resources */ = {isa = PBXBuildFile; fileRef = B887F6131DC7386800B4B36C /* 4.12.png */; };
 		B887F6461DC7466700B4B36C /* CRSceneCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B887F6451DC7466700B4B36C /* CRSceneCollectionViewCell.m */; };
 		B887F6481DC74B8600B4B36C /* CoverIMG.png in Resources */ = {isa = PBXBuildFile; fileRef = B887F6471DC74B8600B4B36C /* CoverIMG.png */; };
+		B88CCCEC1E10ED12000D9A06 /* CRShareActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88CCCEB1E10ED12000D9A06 /* CRShareActivityViewController.m */; };
 		B894A5101DD04F2C00A64F91 /* testImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B894A50F1DD04F2C00A64F91 /* testImage.jpg */; };
 		B8E5CDBF1DB9E3BC006FBA6E /* CRSceneCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8E5CDBE1DB9E3BC006FBA6E /* CRSceneCollectionViewController.m */; };
 		B8E5CDC21DB9E3ED006FBA6E /* CRValueForPicterView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8E5CDC11DB9E3ED006FBA6E /* CRValueForPicterView.m */; };
@@ -277,6 +278,8 @@
 		B887F6441DC7466700B4B36C /* CRSceneCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRSceneCollectionViewCell.h; sourceTree = "<group>"; };
 		B887F6451DC7466700B4B36C /* CRSceneCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRSceneCollectionViewCell.m; sourceTree = "<group>"; };
 		B887F6471DC74B8600B4B36C /* CoverIMG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CoverIMG.png; sourceTree = "<group>"; };
+		B88CCCEA1E10ED12000D9A06 /* CRShareActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRShareActivityViewController.h; sourceTree = "<group>"; };
+		B88CCCEB1E10ED12000D9A06 /* CRShareActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRShareActivityViewController.m; sourceTree = "<group>"; };
 		B894A50F1DD04F2C00A64F91 /* testImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = testImage.jpg; sourceTree = "<group>"; };
 		B8E5CDBD1DB9E3BC006FBA6E /* CRSceneCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRSceneCollectionViewController.h; sourceTree = "<group>"; };
 		B8E5CDBE1DB9E3BC006FBA6E /* CRSceneCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRSceneCollectionViewController.m; sourceTree = "<group>"; };
@@ -565,6 +568,8 @@
 			children = (
 				B87F38251E0BF44D00974BDD /* CRDynamicShareManager.h */,
 				B87F38261E0BF44D00974BDD /* CRDynamicShareManager.m */,
+				B88CCCEA1E10ED12000D9A06 /* CRShareActivityViewController.h */,
+				B88CCCEB1E10ED12000D9A06 /* CRShareActivityViewController.m */,
 			);
 			path = ShareManager;
 			sourceTree = "<group>";
@@ -894,6 +899,7 @@
 				B87F3A781D93D4AB0010D8BC /* CRPhotoModel.m in Sources */,
 				B87F3A711D93CB6E0010D8BC /* CRNineBoxViewController.m in Sources */,
 				B87F3A6C1D93C3E00010D8BC /* CRNineBoxView.m in Sources */,
+				B88CCCEC1E10ED12000D9A06 /* CRShareActivityViewController.m in Sources */,
 				B87EDFF31DB89BB800A6E7E1 /* CRAdvertisementView.m in Sources */,
 				B81C67A01DF056C000DCA45A /* CRNineCustomView.m in Sources */,
 				B84F40711D800E3700E20225 /* main.m in Sources */,

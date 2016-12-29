@@ -62,8 +62,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *)shearViewImage:(UIImageView *)imageView withFrame:(CGRect)frame;
 
 
-
-
 @end
 
 

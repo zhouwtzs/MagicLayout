@@ -12,6 +12,7 @@
 #import "CRPhotoCollectionViewCell.h"
 #import "CRNineCustomView.h"
 
+#import "CRShareActivityViewController.h"
 #import "UIImage+CRCategory.h"
 
 
@@ -333,7 +334,17 @@
 - (void)DynamicShare{
     
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     [CRDynamicShareManager DynamicShareImages:_nineBoxView.thumbImageArray text:@"一个简单的测试" location:nil];
+=======
+    NSArray * activityItems = @[[UIImage imageNamed:@"test.jpg"]];
+    
+    CRShareActivityViewController * shareActivityVC = [[CRShareActivityViewController alloc]initWithActivityItems:_nineBoxView.thumbImageArray applicationActivities:nil];
+    
+    [self presentViewController:shareActivityVC animated:YES completion:nil];
+    
+//    [CRDynamicShareManager DynamicShareImages:_nineBoxView.thumbImageArray text:@"一个简单的测试" location:nil];
+>>>>>>> Stashed changes
 //    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
 //    [shareParams SSDKSetupShareParamsByText:@"分享内容"
 //                                     images:[UIImage imageNamed:@"test.jpg"]
